@@ -9,6 +9,7 @@ let secondsLeft = 30;
 let timerInterval = null;
 
 function clickBtn() {
+  playAudio();
   score++;
   result.firstChild.data = "Score: " + score;
 }
