@@ -1,32 +1,32 @@
 const button = document.querySelector(".button-50");
 let result = document.querySelector(".score");
-const startButton = document.querySelector(".button-74");
 let containers = document.querySelector(".container");
+let timer = document.querySelector(".timer");
 
 button.onclick = clickBtn;
 let score = 0;
+let secondsLeft = 30;
+let timerInterval = null;
 
-startButton.addEventListener("click", () => {
-    screens[0].classList.remove("visible");
-    screens[1].classList.add("visible");
-  });
-
-
-
-function clickBtn(){
-    playAudio();
-    score++;
-    result.firstChild.data = "Score: " + score;
-
-    if(score === 100){
-        alert("Congratulations you have reached 100 points!");
-    }else if(score === 300){
-        alert("Congratulations you have reached 300 points!");
-    }
+function clickBtn() {
+  score++;
+  result.firstChild.data = "Score: " + score;
 }
 
-function playAudio(){
-    const audio = document.querySelector(".audio");
-    audio.play();
-}
+function updateTimer() {
+  timer.textContent = `Time left: ${secondsLeft}s`;
 
+  if (secondsLeft === 0) {
+    clearInterval(timerInterval);
+    button.remove(clickBtn);
+    result.textContent = "Game Over! Your final score is " + score;
+  } else {
+    secondsLeft--;
+  }
+}
+timerInterval = setInterval(updateTimer, 1000);
+
+function playAudio() {
+  const audio = document.querySelector(".audio");
+  audio.play();
+}
